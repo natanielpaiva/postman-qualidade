@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "62db54bd-f9a1-4ebd-bb4d-fd2284d90b21",
+		"name": "JSONPlaceholder Tests",
+		"description": "Collection de teste para explorar endpoints da JSONPlaceholder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "543494"
+	},
+	"item": [
+		{
+			"name": "Criar Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar título do post criado\", function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.title).to.eql(\"Qualidade de Software\");",
+							"});",
+							"",
+							"pm.test(\"Armazenar ID do post criado na variável da collection\", function () {",
+							"    var responseData = pm.response.json();",
+							"    // Armazena o ID do post em uma variável da collection chamada \"postId\"",
+							"    pm.collectionVariables.set(\"postId\", responseData.id);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\": \"Qualidade de Software\", \"body\": \"Postman com @natanieltech\", \"userId\": 3}"
+				},
+				"url": "https://jsonplaceholder.typicode.com/posts"
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar que a lista de posts não está vazia\", function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.length).to.be.greaterThan(0); // Ou use .to.be.above(0)",
+							"});",
+							"",
+							"pm.test(\"Validar que a lista de posts contém pelo menos 1 item\", function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.length).to.be.above(0); // Verifica se a lista tem mais de 0 itens",
+							"});",
+							"",
+							"pm.test(\"Validar tamanho da lista de posts\", function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.length).to.eql(100);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://jsonplaceholder.typicode.com/posts"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Post por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://jsonplaceholder.typicode.com/posts/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Post por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar título do post editado\", function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.title).to.eql(\"Qualidade de Software\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 1, \"title\": \"Qualidade de Software\", \"body\": \"com Nataniel Paiva @natanieltech\", \"userId\": 1}"
+				},
+				"url": "https://jsonplaceholder.typicode.com/posts/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Post por ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://jsonplaceholder.typicode.com/posts/1"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "postId",
+			"value": ""
+		}
+	]
+}
